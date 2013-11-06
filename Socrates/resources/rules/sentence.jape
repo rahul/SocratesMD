@@ -1,0 +1,49 @@
+Phase: Phase6
+Input: Token Address 
+Options: control =first
+
+
+Macro:SENT
+(
+
+{Token.orth == upperInitial, Token.category == DT, Token.string != "All"}|
+{Token.orth == upperInitial, Token.category == IN, Token.string != "Between"}
+
+)
+
+
+Macro:URL
+(
+{Address,Address notWithin keySent, Address.kind == url}
+)
+
+
+Rule:Sentence_extraction
+(
+(({Token.string !=~ "[.•]"})(SENT):catName)
+)
+-->
+:catName.INTER = {string = :catName@string, length = :catName.keySent@length}
+
+
+
+
+
+/*
+Rule:Sentence_extraction
+(
+(({Token.string !=~ "[.•]"})({SpaceToken.kind == space})?(SENT):catName)
+)
+-->
+:catName.INTER = {string = :catName@string, length = :catName.keySent@length}
+*/
+
+Rule:Sentence_extraction
+(
+(URL)
+):catName
+-->
+:catName.ADDRESS = {string = :catName@string, length = :catName.keySent@length}
+
+
+

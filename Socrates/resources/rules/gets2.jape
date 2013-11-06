@@ -1,0 +1,11 @@
+Phase:GetSentences2
+Input: Sentence p div  keySentence
+Options: control = first
+
+Rule: splits2
+(
+{Sentence within {p},Sentence notContains {keySentence}}
+)
+:rule
+-->
+:rule.keySentence2={tag="para",string=:rule@string}

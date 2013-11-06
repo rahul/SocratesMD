@@ -1,0 +1,13 @@
+Phase:GetSentences4
+Input: keySentence keySentence2 keySentence3 Token SpaceToken p Lookup 
+Options: control = first
+
+Rule: splits4
+(
+	(({Token,Token notWithin{keySentence},Token notWithin{keySentence3}}
+	({SpaceToken})*)+):s
+	({Token within {keySentence}}|{Token within {keySentence3}})[1]
+)
+:rule
+-->
+:s.keySentence5={type="others",string=:s@string}

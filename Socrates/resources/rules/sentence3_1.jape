@@ -1,0 +1,26 @@
+Phase: Phase10
+Input: keySent Token SpaceToken SPACE COLON title
+Options: control = appelt
+
+
+
+
+
+Rule:Sentence_extraction
+(
+{keySent, keySent contains SPACE, keySent contains COLON}
+):catName
+-->
+:catName.SPACE_SENTENCE = {string = :catName@string, length = :catName.keySent@length}
+
+Rule:Sentence_extraction
+(
+{keySent, keySent contains {title}}
+):catName
+-->
+:catName.TITLE_SENTENCE = {string = :catName@string, length = :catName.NEW_SENTENCE@length}
+
+
+
+
+

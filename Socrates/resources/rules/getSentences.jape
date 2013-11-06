@@ -1,0 +1,24 @@
+Phase:GetSentences
+Input: Sentence p div //title
+Options: control = first
+
+/*
+Rule:titlesplit
+(
+{title}
+)
+:t
+-->
+:t.keySentence={type="title",string=:t@string}
+*/
+
+
+Rule: splits
+(
+//{Sentence within {p},p within {div}, p notContains {div}}|
+{p within {Sentence}, p notContains {div}}
+
+)
+:rule
+-->
+:rule.keySentence={type="para",string=:rule@string}

@@ -1,0 +1,112 @@
+Phase: Phase7
+Input: keySent Token body INTER ADDRESS p
+Options: control = first
+
+
+
+
+
+
+Rule:Sentence_extraction
+(
+{keySent, keySent contains INTER}
+):catName
+-->
+:catName.INTER1 = {string = :catName@string, length = :catName.keySent@length}
+
+Rule:Sentence_extraction
+(
+{keySent, keySent contains {Token.string == "•"}}
+):catName
+-->
+:catName.INTER2 = {string = :catName@string, length = :catName.keySent@length}
+
+
+
+
+
+
+
+
+
+/* Not working
+Rule:Sentence_extraction
+(
+{p, p contains ADDRESS, p notWithin p}
+):catName
+-->
+:catName.INTER1 = {string = :catName@string, length = :catName.keySent@length}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Rule:Sentence_extraction
+(
+{keySent, keySent@length > 20, keySent within body}
+):catName
+-->
+:catName.NEW_SENTENCE = {string = :catName@string, length = :catName.keySent@length}
+*/
+
+
+/*
+Rule:Sentence_extraction
+(
+((({Token,Token within keySent})+):catName({Token,Token within keySent, Token.orth == upperInintial, Token.category !=~ "NN.*"})({Token,Token within keySent})+):catName1
+)
+-->
+:catName.NEW_SENTENCE = {string = :catName@string, length = :catName.keySent@length},
+:catName1.NEW_SENTENCE = {string = :catName1@string, length = :catName1.keySent@length}
+
+*/
+/*
+Rule:Sentence_extraction
+(
+(({Token,Token within keySent})+):catName({Token,Token within {keySent}, Token.orth == upperInitial, Token.category !=~ "NN.*"})
+)
+-->
+:catName.NEW_SENTENCE = {string = :catName@string, length = :catName.keySent@length}
+*/
+
+
+
+
+/*
+Rule:Sentence_extraction
+(
+({keySent,keySent contains {Token.orth == upperInitial}})
+):catName
+-->
+:catName.NEW_SENTENCE = {string = :catName@string, length = :catName.keySent@length}
+*/
+
+
+
+

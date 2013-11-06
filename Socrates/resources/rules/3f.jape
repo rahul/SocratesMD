@@ -1,0 +1,321 @@
+Phase: Phase3
+Input: Token Lookup FEATURE SENTENCE1 DOTS ENTITY MISC POINTS keySent ENTITY_TITLE TABLE_ENTRY
+Options: control = appelt
+
+
+
+
+
+
+/*
+Rule:EntitySentence
+(
+({SENTENCE1, SENTENCE1 contains ENTITY})|
+({SENTENCE1, SENTENCE1 contains ENTITY_TITLE})
+):catName
+-->
+:catName.ENTITY_SENTENCE = {string = :catName.ENTITY@string}
+*/
+
+
+
+
+
+
+
+
+
+
+
+/*
+Returns the keysentence only when feature is occuring in the starting.
+It returns the type of feature. 
+*/
+/*
+Rule:FeatureSentence
+(
+{SENTENCE1, FEATURE within SENTENCE1}
+):catName
+-->
+:catName.FEATURE_SENTENCE = {type = :catName.FEATURE.type}
+*/
+
+
+/*
+Returns the keysentence when a feature is occuring anywhere in the sentence.
+It does not returns anything. 
+*/
+
+/*
+Rule:FeatureSentence1
+(
+{SENTENCE1, SENTENCE1 contains FEATURE}
+):catName
+-->
+:catName.FEATURE_SENTENCE1 = {type = :catName.FEATURE.type}
+*/
+
+
+
+
+
+
+
+/*
+Returns the keysentence when misc is occuring anywhere in the sentence.
+It does not returns anything. 
+*/
+
+Rule:FeatureSentence1
+(
+{SENTENCE1, SENTENCE1 contains MISC}
+):catName
+-->
+:catName.FEATURE_SENTENCE = {type = :catName.FEATURE.type}
+//:catName.FEATURE_SENTENCE1 = {type = :catName.FEATURE.type}
+
+
+
+
+
+/*
+Returns the keysentence when a pointsentence is occuring anywhere in the sentence.
+It does not returns anything. 
+*/
+
+Rule:PointSentence1
+(
+{SENTENCE1, SENTENCE1 contains POINTS}
+):catName
+-->
+:catName.FEATURE_SENTENCE = {type = "Point"}
+//:catName.FEATURE_SENTENCE1 = {type = "Point"}
+
+
+
+Rule:PointSentence1
+(
+{SENTENCE1, SENTENCE1 contains TABLE_ENTRY}
+):catName
+-->
+:catName.FEATURE_SENTENCE = {type = "TABLE_ENTRY"}
+
+
+
+
+
+
+
+
+
+
+/*************************************************************************************/
+
+
+
+//both feature and sentence
+
+/*
+Returns the keysentence only when feature is occuring in the starting.
+It returns the type of feature. 
+*/
+
+Rule:FeatureSentence
+Priority:10
+(
+{SENTENCE1, FEATURE within SENTENCE1, ENTITY within SENTENCE1}
+):catName
+-->
+:catName.FEATURE_SENTENCE = {feature_type = :catName.FEATURE.type, entity_type=:catName.ENTITY.type, feature = :catName.FEATURE@string, entity =  :catName.ENTITY@string}
+
+
+/*
+Returns the keysentence when a feature is occuring anywhere in the sentence.
+It does not returns anything. 
+*/
+
+
+Rule:FeatureSentence1
+Priority:10
+(
+{SENTENCE1, SENTENCE1 contains FEATURE, SENTENCE1 contains ENTITY}
+):catName
+-->
+:catName.FEATURE_SENTENCE = {feature_type = "FEATURE", entity_type = "ENTITY"}
+
+
+
+
+//feature only
+
+
+
+Rule:FeatureSentence
+(
+{SENTENCE1, FEATURE within SENTENCE1}
+):catName
+-->
+:catName.FEATURE_SENTENCE = {feature_type = :catName.FEATURE.type}
+
+Rule:FeatureSentence1
+(
+{SENTENCE1, SENTENCE1 contains FEATURE}
+):catName
+-->
+:catName.FEATURE_SENTENCE = {feature_type = "FEATURE"}
+
+
+
+
+
+
+//entity only
+
+
+
+Rule:EntitySentence
+(
+({SENTENCE1, SENTENCE1 contains ENTITY})|
+({SENTENCE1, SENTENCE1 contains ENTITY_TITLE})
+):catName
+-->
+:catName.FEATURE_SENTENCE = {entity_type = "ENTITY"}
+
+
+
+Rule:EntitySentence
+(
+{SENTENCE1, ENTITY within SENTENCE1}
+):catName
+-->
+:catName.FEATURE_SENTENCE = {entity_type = :catName.ENTITY.type}
+
+Rule:EntitySentence
+(
+{SENTENCE1, ENTITY_TITLE within SENTENCE1}
+):catName
+-->
+:catName.FEATURE_SENTENCE = {entity_type = :catName.ENTITY_TITLE.type}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+Rule:EntitySentence
+(
+{Token.string == ENTITY.string}
+):catName
+-->
+:catName.ENTITY_NEW = {string = :catName.ENTITY@string}
+*/
+
+
+
+/*
+Rule:FeatureSentence3
+(
+{keySent, keySent within FEATURE}
+):catName
+-->
+:catName.FEATURE_SENTENCE3 = {type = :catName.FEATURE.type, feature = :catName.FEATURE@string}
+*/
+
+
+
+
+
+
+
+
+
+
+
+/*
+Try form rahul
+Rule:FeatureSentence1
+(
+{keySent,FEATURE, keySent contains FEATURE}
+):catName
+-->
+:catName.FEATURE_SENTENCE1 = {type = :catName.FEATURE.type}
+
+
+
+
+
+
+Rule:FeatureSentence
+(
+{keySent, FEATURE within keySent}
+):catName
+-->
+:catName.FEATURE_SENTENCE = {type = :catName.FEATURE.type, feature = :catName.FEATURE@string}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

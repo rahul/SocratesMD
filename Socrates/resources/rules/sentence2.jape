@@ -1,0 +1,52 @@
+Phase: Phase8
+Input: keySent Token body INTER INTER1 ADDRESS title
+Options: control = appelt
+
+
+
+
+
+
+Rule:Sentence_extraction
+(
+({Token, Token within INTER1,Token notWithin INTER}({Token, Token within INTER1,Token notWithin INTER})+):catName({INTER}({Token, Token within INTER1, Token notWithin INTER})+):catName1
+
+) 
+-->
+:catName.NEW_SENTENCE = {string = :catName@string, length = :catName.keySent@length},
+:catName1.NEW_SENTENCE = {string = :catName1@string, length = :catName1.keySent@length}
+
+
+
+
+
+Rule:Sentence_extraction
+(
+({ADDRESS}):catName(({Token, Token within INTER1, Token notWithin ADDRESS})+):catName1
+
+) 
+-->
+:catName.NEW_SENTENCE = {string = :catName@string, length = :catName.keySent@length},
+:catName1.NEW_SENTENCE = {string = :catName1@string, length = :catName1.keySent@length}
+
+
+
+Rule:Sentence_extraction
+(
+({Token.string == "•"}({Token, Token within INTER2, Token.string != "•"})({Token, Token within INTER2, Token.string != "•"})+)
+
+):catName 
+-->
+:catName.NEW_SENTENCE1 = {string = :catName@string, length = :catName.keySent@length}
+
+
+
+
+
+
+//:catName2
+//(({INTER}(({Token, Token within INTER1})+)):catName1
+
+
+
+

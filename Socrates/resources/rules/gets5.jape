@@ -1,0 +1,12 @@
+Phase:GetSentencesFinal
+Input: keySentence keySentence3 keySentence4 keySentence5
+Options: control = first
+
+Rule: splits2
+(
+{keySentence }| {keySentence3} | {keySentence4}|{keySentence5}
+)
+:rule
+-->
+:rule.keySent={string=:rule@string}
+
